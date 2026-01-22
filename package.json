@@ -1,0 +1,16 @@
+{
+  "name": "repo-root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "prettier": "^3.8.0",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "turbo": "^2.7.4",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}

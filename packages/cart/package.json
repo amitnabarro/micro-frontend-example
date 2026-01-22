@@ -1,0 +1,36 @@
+{
+  "name": "@repo/cart",
+  "description": "",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./style.css": {
+      "import": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch --emptyOutDir=false",
+    "lint:code": "npx eslint src --max-warnings=0",
+    "format:check": "prettier --check 'src/**/*.{js,ts,tsx,json,yaml}'",
+    "format:write": "prettier --write 'src/**/*.{js,ts,tsx,json,yaml}'"
+  },
+  "peerDependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router": "^7.12.0",
+    "react-router-dom": "^7.12.0"
+  }
+}
