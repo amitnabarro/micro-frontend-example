@@ -19,19 +19,17 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: '@repo/cart',
+      name: '@repo/shared',
       formats: ['es', 'cjs'],
       fileName: format => `index.${format}.js`,
     },
     // emptyOutDir: !isWatch,
     rollupOptions: {
-      external: ['react', 'react-dom', 'react-router', 'react-router-dom'],
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'react-router': 'ReactRouter',
-          'react-router-dom': 'ReactRouterDOM',
         },
       },
     },

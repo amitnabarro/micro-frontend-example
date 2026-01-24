@@ -2,3 +2,5 @@
 
 @source '../**/*.{ts,tsx}';
 @source '../../../../catalog/src/**/*.{ts,tsx}';
+@source '../../../../cart/src/**/*.{ts,tsx}';
+@source '../../../../shared/src/**/*.{ts,tsx}';

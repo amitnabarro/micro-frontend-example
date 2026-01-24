@@ -25,13 +25,14 @@ export default defineConfig({
     },
     // emptyOutDir: !isWatch,
     rollupOptions: {
-      external: ['react', 'react-dom', 'react-router', 'react-router-dom'],
+      external: ['react', 'react-dom', 'react-router', 'react-router-dom', '@repo/shared'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           'react-router': 'ReactRouter',
           'react-router-dom': 'ReactRouterDOM',
+          '@repo/shared': '@repo/shared',
         },
       },
     },

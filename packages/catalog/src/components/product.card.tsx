@@ -1,4 +1,4 @@
-import { Product } from '../types'
+import { Product } from '@repo/shared'
 
 type ProductCardProps = Product & {
   onAddToCart?: (product: Product) => void
@@ -17,7 +17,7 @@ const ProductCard = ({ id, title, price, description, image, category, rating, o
       <div className="flex flex-1 flex-col gap-3 p-4">
         <header className="flex flex-col gap-1">
           <h3 className="line-clamp-2 text-base font-semibold text-gray-900">{title}</h3>
-          <div className="text-xs text-gray-500">ID: {id}</div>
+          <div className="text-xs text-gray-500">SKU: {id}</div>
         </header>
 
         <p className="line-clamp-3 text-sm text-gray-700">{description}</p>
