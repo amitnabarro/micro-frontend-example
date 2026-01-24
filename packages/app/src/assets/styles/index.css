@@ -1,0 +1,4 @@
+@import '@repo/design/presets/default.css';
+
+@source '../**/*.{ts,tsx}';
+@source '../../../../catalog/src/**/*.{ts,tsx}';
