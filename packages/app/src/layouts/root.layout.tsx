@@ -24,8 +24,8 @@ const RootLayout = () => {
           </button>
         </nav>
         <div className="flex flex-1 flex-row">
-          <main className="flex-1">
-            <div className="h-full">
+          <main className="flex-1 overflow-hidden">
+            <div className="h-full overflow-auto">
               <Outlet />
             </div>
           </main>

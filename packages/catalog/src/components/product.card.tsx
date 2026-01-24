@@ -1,10 +1,31 @@
-import { AddIcon, Product } from '@repo/shared'
+import { AddIcon, Product, StarIcon } from '@repo/shared'
 
 type ProductCardProps = Product & {
   onAddToCart?: (product: Product) => void
 }
 
 const ProductCard = ({ id, title, price, description, image, category, rating, onAddToCart }: ProductCardProps) => {
+  const renderStars = (rating: number) => {
+    const stars = []
+    const fullStars = Math.floor(rating)
+    const hasHalfStar = rating % 1 !== 0
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<StarIcon key={`full-${i}`} filled className="text-yellow-400" />)
+    }
+
+    if (hasHalfStar && fullStars < 5) {
+      stars.push(<StarIcon key="half" filled className="text-yellow-400" />)
+    }
+
+    const emptyStars = 5 - Math.ceil(rating)
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<StarIcon key={`empty-${i}`} className="text-gray-300" />)
+    }
+
+    return stars
+  }
+
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
       <div className="relative bg-gray-50">
@@ -36,11 +57,12 @@ const ProductCard = ({ id, title, price, description, image, category, rating, o
 
           <div className="flex items-end justify-between gap-3">
             <div className="text-lg font-semibold text-gray-900">${price.toFixed(2)}</div>
-            <div className="text-right text-xs text-gray-600">
-              <div>
-                Rating: <span className="font-medium text-gray-900">{rating.rate}</span>/5
+            <div className="text-right">
+              <div className="flex items-center gap-1">
+                <div className="flex">{renderStars(rating.rate)}</div>
+                <span className="ml-1 text-xs font-medium text-gray-900">{rating.rate}</span>
               </div>
-              <div>({rating.count} reviews)</div>
+              <div className="text-xs text-gray-600">({rating.count} reviews)</div>
             </div>
           </div>
         </div>
