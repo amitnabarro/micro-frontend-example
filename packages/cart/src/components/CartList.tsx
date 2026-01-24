@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { DeleteIcon, useProducts } from '@repo/shared'
+import { useNavigate } from 'react-router'
 
 const CART_STORAGE_KEY = 'cart'
 
@@ -38,6 +39,7 @@ const writeCartToStorage = (cart: string[]) => {
 export const CartList = () => {
   const [items, setItems] = useState<string[]>(() => Array.from(new Set(readCartFromStorage())))
   const { products } = useProducts()
+  const navigate = useNavigate()
 
   const total = items.reduce((sum, productId) => {
     const product = products.find(p => String(p.id) === productId)
@@ -102,7 +104,11 @@ export const CartList = () => {
 
       <button
         type="button"
-        onClick={() => console.log('pay', items)}
+        onClick={() => {
+          writeCartToStorage([])
+          setItems([])
+          navigate('/thank-you')
+        }}
         className="h-12 w-full rounded-md bg-green-600 text-base font-semibold text-white hover:bg-green-700 active:bg-green-800"
       >
         Pay ${total.toFixed(2)}

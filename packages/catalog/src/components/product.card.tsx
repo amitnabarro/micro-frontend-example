@@ -1,4 +1,4 @@
-import { Product } from '@repo/shared'
+import { AddIcon, Product } from '@repo/shared'
 
 type ProductCardProps = Product & {
   onAddToCart?: (product: Product) => void
@@ -28,7 +28,10 @@ const ProductCard = ({ id, title, price, description, image, category, rating, o
             onClick={() => onAddToCart?.({ id, title, price, description, image, category, rating })}
             className="inline-flex h-10 w-full items-center justify-center rounded-md bg-blue-600 px-4 text-sm font-semibold text-white hover:bg-blue-700 active:bg-blue-800"
           >
-            Add to cart
+            <span className="inline-flex items-center gap-2">
+              <AddIcon className="block" />
+              <span>Add to cart</span>
+            </span>
           </button>
 
           <div className="flex items-end justify-between gap-3">
