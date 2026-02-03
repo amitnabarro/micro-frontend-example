@@ -1,5 +1,7 @@
 import { ProductCard } from '../components'
 import { useProducts } from '@repo/shared'
+import { useSearchBarPortal } from '../hooks/useSearchBarPortal'
+import { useState, useMemo } from 'react'
 
 const CART_STORAGE_KEY = 'cart'
 
@@ -46,23 +48,62 @@ const addProductIdToCart = (productId: string | number): string[] => {
 
 const CatalogPage = () => {
   const { products } = useProducts()
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return products
+    }
+
+    const query = searchQuery.toLowerCase()
+    return products.filter(
+      product =>
+        product.title.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query)
+    )
+  }, [products, searchQuery])
+
+  const SearchBar = (
+    <input
+      type="search"
+      placeholder="Search products"
+      value={searchQuery}
+      onChange={e => setSearchQuery(e.target.value)}
+      className="h-10 w-72 rounded-md border border-white/20 bg-white/10 px-3 text-sm text-white placeholder:text-white/70 focus:ring-2 focus:ring-white/30 focus:outline-none"
+    />
+  )
+
+  const { portal } = useSearchBarPortal(SearchBar)
 
   const onAddToCart = (product: { id: string | number }) => {
-    const nextCart = addProductIdToCart(product.id)
+    addProductIdToCart(product.id)
   }
 
   if (products.length === 0) {
-    return <div className="p-6">Loading...</div>
+    return (
+      <>
+        {portal}
+        <div className="p-6">Loading...</div>
+      </>
+    )
   }
 
   return (
-    <div className="h-full overflow-auto p-6">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-        {products.map(product => (
-          <ProductCard key={product.id} {...product} onAddToCart={onAddToCart} />
-        ))}
+    <>
+      {portal}
+      <div className="h-full overflow-auto p-6">
+        {filteredProducts.length === 0 ? (
+          <div className="p-6 text-center text-white/70">No products found matching "{searchQuery}"</div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+            {filteredProducts.map(product => (
+              <ProductCard key={product.id} {...product} onAddToCart={onAddToCart} />
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   )
 }
 

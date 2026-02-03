@@ -63,7 +63,11 @@ export const CartList = () => {
   }, [])
 
   if (items.length === 0) {
-    return <div className="text-sm text-gray-600">Cart is empty</div>
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div className="text-2xl font-semibold text-gray-600">Cart is empty</div>
+      </div>
+    )
   }
 
   return (
